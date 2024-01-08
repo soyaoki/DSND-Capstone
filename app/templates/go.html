@@ -1,0 +1,56 @@
+{% extends "master.html" %}
+{% block title %}Results{% endblock %}
+
+{% block message %}
+    <hr />
+    <h2 class="text-center"><strong>MESSAGE</strong></h2>
+    <p class="text-center"><i>
+        {% if query|length > 500 %}
+            {{ query[:500] }}...
+        {% else %}
+            {{ query }}
+        {% endif %}
+    </i></p>
+    
+{% endblock %}
+
+{% block content %}
+    <h1 class="text-center">Result: <strong>{% if classification_result['LLM'] > classification_result['Human'] %}LLM{% else %}Human{% endif %}</strong></h1>
+    
+    <div class="row">
+        <div class="col-md-6" style="margin: 0 auto; float: none;">
+            <div id="classification-chart"></div>
+        </div>
+    </div>
+
+    <script>
+        // Extract classification results from Python to JavaScript
+        var classificationResults = {{ classification_result|tojson }};
+        
+        // Extract class labels and probabilities
+        var classLabels = Object.keys(classificationResults);
+        var probabilities = Object.values(classificationResults);
+
+        // Create a bar chart using Plotly
+        var trace = {
+            x: classLabels,
+            y: probabilities,
+            type: 'bar',
+            marker: {
+                color: ['#28a745', '#343a40']
+            }
+        };
+
+        var layout = {
+            title: 'Classification Probabilities',
+            yaxis: {
+                title: 'Probability'
+            }
+        };
+
+        var data = [trace];
+        Plotly.newPlot('classification-chart', data, layout);
+    </script>
+
+{% endblock %}
+
