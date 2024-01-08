@@ -22,7 +22,7 @@ Below are a few screenshots of the web app.
 # 2. Files in the repository
 
 - `Jupyter-Notebook`
-    - `XXX.ipynb` : A notebook for designing ETL step and ML step. 
+    - `llm-detect-ai-generated-text.ipynb` : A notebook for understanding data and designing ETL step and ML step. 
 - `app`
     - `templates`
         -  `master.html`  : HTML file of main page of the web app.
@@ -36,20 +36,24 @@ Below are a few screenshots of the web app.
 
 # 3. Instructions:
 1. Install requirements.
+   
    `pip install -r requirements.txt`
    
-2. Run the following commands in the project's root directory to set up your database and model.
+3. Run the following commands in the project's root directory to set up your database and model.
 
     - To run ETL pipeline that cleans data and stores in database
+      
         `python data/process_data.py data/dataset_essays.csv data/DetectAIEssays.db`
+      
     - To run ML pipeline that trains classifier and saves
+      
         `python models/train_classifier.py data/DetectAIEssays.db models/classifier.pkl`
 
-3. Go to `app` directory: `cd app`
+4. Go to `app` directory: `cd app`
 
-4. Run your web app: `python run.py`
+5. Run your web app: `python run.py`
 
-5. Click [here](http://0.0.0.0:3000/) to open the web app. If you're working at Udacity's workspace, click the `PREVIEW` button to open the homepage.
+6. Click [here](http://0.0.0.0:3000/) to open the web app. If you're working at Udacity's workspace, click the `PREVIEW` button to open the homepage.
 
 # 4. Libraries used
 
