@@ -82,7 +82,7 @@ def index():
             'layout': {
                 'title': 'Distribution of Dataset',
                 'yaxis': {
-                    'title': "Rate[-]"
+                    'title': "Ratio of the class[-]"
                 },
                 'xaxis': {
                     'title': "Essays written by"

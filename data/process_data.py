@@ -4,15 +4,14 @@ from sqlalchemy import create_engine
 
 def load_data(filepath):
     '''
-    Load data from a SQLite database.
+    Load data from input path.
 
     Args:
-        database_filepath (str): The file path of the SQLite database.
+        database_filepath (str): The file path to load.
 
     Returns:
         X (pd.Series): A pandas Series containing the messages.
         Y (pd.DataFrame): A pandas DataFrame containing the categories.
-        category_names (numpy.ndarray): An array of category names.
     '''
     
     # load datasets
@@ -26,10 +25,10 @@ def clean_data(df):
     Clean and preprocess the input DataFrame.
 
     Args:
-        df (pd.DataFrame): The input DataFrame containing the 'categories' column.
+        df (pd.DataFrame): The input DataFrame.
 
     Returns:
-        df (pd.DataFrame): The cleaned DataFrame with individual category columns.
+        df (pd.DataFrame): The cleaned DataFrame.
     '''
     
     # drop duplicates
@@ -71,12 +70,10 @@ def main():
         print('Cleaned data saved to database!')
     
     else:
-        print('Please provide the filepaths of the messages and categories '\
-              'datasets as the first and second argument respectively, as '\
+        print('Please provide the filepaths of datasets as the first argument respectively, as '\
               'well as the filepath of the database to save the cleaned data '\
-              'to as the third argument. \n\nExample: python process_data.py '\
-              'disaster_messages.csv disaster_categories.csv '\
-              'DisasterResponse.db')
+              'to as the second argument. \n\nExample: python process_data.py '\
+              'dataset_essays.csv DetectAIEssays.db')
 
 
 if __name__ == '__main__':

@@ -89,8 +89,41 @@ def tokenize(text):
     return clean_tokens
 
 class StartingVerbExtractor(BaseEstimator, TransformerMixin):
+    '''
+    Custom transformer for identifying whether the starting word in a sentence is a verb.
 
+    Attributes:
+        None
+
+    Methods:
+        starting_verb(text): 
+            Tokenizes sentences, tags part of speech for the first word, 
+            and checks if it is a verb or 'RT' for retweet.
+            Returns 1 if true, 0 otherwise.
+
+        fit(x, y=None): 
+            Placeholder method required for compatibility with scikit-learn pipelines.
+            Returns the instance itself.
+
+        transform(X): 
+            Applies the starting_verb function to all values in X.
+            Returns a DataFrame with the results, replacing NaN values with 0.
+
+    Usage:
+        starting_verb_extractor = StartingVerbExtractor()
+        result_df = starting_verb_extractor.transform(text_data)
+    '''
     def starting_verb(self, text):
+        '''
+        Tokenizes sentences, tags part of speech for the first word, 
+        and checks if it is a verb or 'RT' for retweet.
+        
+        Args:
+            text (str): Input text containing one or more sentences.
+
+        Returns:
+            int: 1 if the starting word is a verb or 'RT', 0 otherwise.
+        '''
         # tokenize by sentences
         sentence_list = nltk.sent_tokenize(text)
         
@@ -109,26 +142,92 @@ class StartingVerbExtractor(BaseEstimator, TransformerMixin):
             return 0
 
     def fit(self, x, y=None):
+        '''
+        Placeholder method required for compatibility with scikit-learn pipelines.
+
+        Args:
+            x: Input features.
+            y: Target variable (not used in this implementation).
+
+        Returns:
+            StartingVerbExtractor: The instance itself.
+        '''
         return self
 
     def transform(self, X):
+        '''
+        Applies the starting_verb function to all values in X.
+
+        Args:
+            X: Input text data.
+
+        Returns:
+            pd.DataFrame: DataFrame with the results, replacing NaN values with 0.
+        '''
         # apply starting_verb function to all values in X
         X_tagged = pd.Series(X).apply(self.starting_verb)
 
         return pd.DataFrame(X_tagged).replace(np.nan, 0)
 
 class TextStatsExtractor(BaseEstimator, TransformerMixin):
-    def fit(self, x, y=None):
-        return self
+    '''
+    Custom transformer for extracting basic text statistics from input text data.
 
-    def transform(self, posts):
-        return pd.DataFrame(posts).apply(self._get_text_stats, axis=1)
+    Attributes:
+        None
 
-    def _get_text_stats(self, text):
+    Methods:
+        fit(x, y=None): 
+            Placeholder method required for compatibility with scikit-learn pipelines.
+            Returns the instance itself.
+
+        transform(posts): 
+            Applies the get_text_stats function to each element in the input text data.
+            Returns a DataFrame with the extracted text statistics.
+
+    Usage:
+        text_stats_extractor = TextStatsExtractor()
+        stats_df = text_stats_extractor.transform(text_data)
+    '''
+    def get_text_stats(self, text):
+        '''
+        Extracts basic text statistics from the input text.
+
+        Args:
+            text (str): Input text.
+
+        Returns:
+            pd.Series: Series containing word count, sentence count, and newline count.
+        '''
         word_count = np.log(len(re.findall(r'\w+', str(text))))
         sentence_count = np.log(len(re.findall(r'[.!?]+', str(text))))
         newline_count = np.log(str(text).count('\n'))
         return pd.Series([word_count, sentence_count, newline_count], index=['N_words_log', 'N_sentences_log', 'N_newlines'])
+    
+    def fit(self, x, y=None):
+        '''
+        Placeholder method required for compatibility with scikit-learn pipelines.
+
+        Args:
+            x: Input features.
+            y: Target variable (not used in this implementation).
+
+        Returns:
+            TextStatsExtractor: The instance itself.
+        '''
+        return self
+
+    def transform(self, posts):
+        '''
+        Applies the get_text_stats function to each element in the input text data.
+
+        Args:
+            posts: Input text data.
+
+        Returns:
+            pd.DataFrame: DataFrame with the extracted text statistics.
+        '''
+        return pd.DataFrame(posts).apply(self.get_text_stats, axis=1)
 
 def build_model():
     '''
@@ -201,6 +300,20 @@ def save_model(model, model_filepath):
         pickle.dump(model, f)
 
 def save_data(model, model_filepath, X_train, X_test, Y_train, Y_test):
+    '''
+    Save processed train and test data along with t-SNE-transformed features for visualization.
+
+    Args:
+        model (object): Trained machine learning model.
+        model_filepath (str): Filepath for saving the data.
+        X_train (pd.DataFrame): Training data features.
+        X_test (pd.DataFrame): Testing data features.
+        Y_train (pd.Series): Training data target variable.
+        Y_test (pd.Series): Testing data target variable.
+
+    Returns:
+        None
+    '''
     # save train data
     # df_train = pd.concat([X_train.reset_index(drop=True),Y_train.reset_index(drop=True)], axis=1)
     # df_train.to_csv("/".join(model_filepath.split("/")[:-1]) + "/train_data.csv")
