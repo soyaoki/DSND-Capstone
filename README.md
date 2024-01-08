@@ -2,7 +2,7 @@
 
 # 1. Project Overview
 
-This repository contains a Flask web app for essay classification, utilizing data from [LLM - Detect AI Generated Text](https://www.kaggle.com/competitions/llm-detect-ai-generated-text/overview). The project involves building a machine learning pipeline to classify essays, for protecting plagiarism by LLM. The web app allows users to input new essays and receive classification results whether human or LLM wrote the essay, accompanied by visualizations for enhanced data interpretation.
+This repository contains a Flask web app for essay classification, utilizing data from [LLM - Detect AI Generated Text](https://www.kaggle.com/competitions/llm-detect-ai-generated-text/overview). The project involves building a machine learning pipeline to classify essays, for protecting plagiarism by LLM. The web app allows users to input new essays and receive classification results whether the essay was written by a human or an LLM, accompanied by visualizations for enhanced data interpretation.
 
 __Key Features__:
 - Flask web app for essay classification.
