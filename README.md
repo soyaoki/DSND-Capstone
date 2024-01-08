@@ -2,12 +2,12 @@
 
 # 1. Project Overview
 
-This repository contains a Flask web app for disaster message classification, utilizing data from [Appen](https://appen.com/). The project involves building a machine learning pipeline to categorize messages, aiding emergency workers in directing information to the appropriate relief agencies. The web app allows users to input new messages and receive classification results across various categories, accompanied by visualizations for enhanced data interpretation.
+This repository contains a Flask web app for essay classification, utilizing data from [LLM - Detect AI Generated Text](https://www.kaggle.com/competitions/llm-detect-ai-generated-text/overview). The project involves building a machine learning pipeline to classify essays, for protecting plagiarism by LLM. The web app allows users to input new essays and receive classification results whether human or LLM wrote the essay, accompanied by visualizations for enhanced data interpretation.
 
 __Key Features__:
-- Flask web app for disaster message classification.
-- Machine learning pipeline for message categorization.
-- User-friendly interface for emergency workers to input messages and obtain classification results.
+- Flask web app for essay classification.
+- Machine learning pipeline for the classification.
+- User-friendly interface for everyone to input essay and obtain classification results.
 - Visualizations to provide insights into the data.
 
 Below are a few screenshots of the web app.
